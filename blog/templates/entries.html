@@ -2,8 +2,41 @@
 {% extends "base.html" %}
 {% block content %}
 
+<div class="dropdown">
+  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Entries per page
+    <span class="caret"></span>
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="/?limit=1">1</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="/?limit=5">5</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="/?limit=10">10</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="/?limit=15">15</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="/?limit=20">20</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="/?limit=50">50</a>
+  </div>
+</div>
+
 {% for entry in entries %}
 {{ macros.render_entry(entry) }}
 {% endfor %}
+
+<ul class="pager">
+    {% if has_next %}
+    <li class="previous" >
+    <a href="{{ url_for('entries', page=page + 1) }}">&larr; Older</a>
+    </li>
+    {% endif %}
+    {% if has_prev %}
+    <li class="next">
+    <a href="{{ url_for('entries', page=page - 1) }}">&rarr; Newer</a>
+    </li>
+    {% endif %}
+</ul>
+
 
 {% endblock %}
